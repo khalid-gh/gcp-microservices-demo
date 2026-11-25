@@ -13,9 +13,12 @@ variable "services" {
   type        = set(string)
   description = "Google APIs to enable"
   default = [
-    "artifactregistry.googleapis.com",
+    "cloudkms.googleapis.com",
     "compute.googleapis.com",
-    "container.googleapis.com"
+    "container.googleapis.com",
+    "iap.googleapis.com",
+    "logging.googleapis.com",
+    "monitoring.googleapis.com"
   ]
   validation {
     condition     = alltrue(flatten([[for service in var.services : service != "" && endswith(service, "googleapis.com") ? true : false]]))
@@ -23,9 +26,15 @@ variable "services" {
   }
 }
 
+variable "kubernetes_proxy_url" {
+  type        = string
+  description = "Local IAP tunnel URL used only for Kubernetes and Helm API requests"
+  default     = "http://127.0.0.1:8118"
+}
+
 variable "master_authorized_networks" {
   type        = list(object({ cidr_block = string, display_name = string }))
-  description = "List of master authorized networks. If none are provided, disallow external access (except the cluster node IPs, which GKE automatically whitelists)"
+  description = "Additional master authorized networks. The Privoxy subnet and GKE node IPs are always authorized"
   default = [
     { cidr_block = "10.0.0.0/18", display_name = "gke-demo-subnet" }
   ]

@@ -13,7 +13,12 @@ module "gke" {
   horizontal_pod_autoscaling = true
   enable_private_nodes       = true
   enable_private_endpoint    = true
-  master_authorized_networks = var.master_authorized_networks
+  master_authorized_networks = concat(var.master_authorized_networks, [
+    {
+      cidr_block   = module.vpc.subnets["${var.region}/privoxy-subnet"].ip_cidr_range
+      display_name = "privoxy-subnet"
+    }
+  ])
 
   node_pools = [
     {

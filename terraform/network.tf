@@ -9,6 +9,12 @@ module "vpc" {
       subnet_ip             = "10.0.0.0/18"
       subnet_region         = var.region
       subnet_private_access = true
+    },
+    {
+      subnet_name           = "privoxy-subnet"
+      subnet_ip             = "10.0.64.0/28"
+      subnet_region         = var.region
+      subnet_private_access = true
     }
   ]
 
@@ -27,23 +33,13 @@ module "vpc" {
 
   ingress_rules = [
     {
-      name          = "allow-iap-ssh-bastion"
-      description   = "Allow IAP SSH to bastion"
-      source_ranges = ["35.235.240.0/20"] # Google IAP TCP forwarding range
-      target_tags   = ["bastion"]
+      name          = "allow-iap-privoxy"
+      description   = "Allow IAP TCP forwarding to Privoxy"
+      source_ranges = ["35.235.240.0/20"]
+      target_tags   = ["privoxy"]
       allow = [{
         protocol = "tcp"
-        ports    = ["22"]
-      }]
-    },
-    {
-      name          = "allow-cluster-bastion-proxy"
-      description   = "Allow private GKE nodes and pods to use the repository proxy"
-      source_ranges = ["10.0.0.0/18", "10.48.0.0/14"]
-      target_tags   = ["bastion"]
-      allow = [{
-        protocol = "tcp"
-        ports    = ["3128"]
+        ports    = ["8118"]
       }]
     }
   ]
