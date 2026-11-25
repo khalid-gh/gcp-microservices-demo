@@ -2,5 +2,3 @@
 skip-check:
   # Access logging isn't required for the state bucket
   - CKV_GCP_62
-  # Artifact Registry repositories use Google-managed encryption
-  - CKV_GCP_84
