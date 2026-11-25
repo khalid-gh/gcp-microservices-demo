@@ -6,6 +6,4 @@ module "kms" {
   keys                = ["privoxy-disk-key"]
   key_rotation_period = "7776000s"
   prevent_destroy     = true
-
-  depends_on = [google_project_service.services]
 }
