@@ -25,6 +25,7 @@ provider "google" {
 }
 
 provider "kubernetes" {
+  proxy_url              = var.kubernetes_proxy_url
   host                   = "https://${module.gke.endpoint}"
   token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(module.gke.ca_certificate)
@@ -32,6 +33,7 @@ provider "kubernetes" {
 
 provider "helm" {
   kubernetes = {
+    proxy_url              = var.kubernetes_proxy_url
     host                   = "https://${module.gke.endpoint}"
     token                  = data.google_client_config.default.access_token
     cluster_ca_certificate = base64decode(module.gke.ca_certificate)
@@ -39,3 +41,7 @@ provider "helm" {
 }
 
 data "google_client_config" "default" {}
+
+data "google_project" "project" {
+  project_id = var.project_id
+}
