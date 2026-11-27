@@ -2,7 +2,7 @@ resource "helm_release" "argocd" {
   name             = "argocd"
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-cd"
-  version          = "10.18.2"
+  version          = local.argocd_chart_version
   namespace        = "argocd"
   create_namespace = true
   atomic           = true
@@ -90,7 +90,7 @@ resource "helm_release" "prometheus" {
   name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "prometheus"
-  version    = "31.0.0"
+  version    = local.prometheus_chart_version
   namespace  = "istio-system"
   atomic     = true
   timeout    = 600
@@ -129,7 +129,7 @@ resource "helm_release" "kiali" {
   name       = "kiali"
   repository = "https://kiali.org/helm-charts"
   chart      = "kiali-server"
-  version    = "2.35.0"
+  version    = local.kiali_chart_version
   namespace  = "istio-system"
   atomic     = true
   timeout    = 600
