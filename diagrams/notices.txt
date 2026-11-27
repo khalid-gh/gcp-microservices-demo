@@ -29,9 +29,14 @@ Roboto for diagram labels; Google Sans for the Google Cloud frame heading.
 Google Fonts CSS sources are configured in the draw.io extFonts metadata.
 The browser needs internet access to load them. No font files are distributed.
 
-Google Cloud gradient logo used on service cards:
-https://www.gstatic.com/cgc/super_cloud_gradient.png
-Retrieved from https://cloud.google.com/blog/topics/inside-google-cloud
+Google Cloud product icons:
+https://cloud.google.com/icons
+Compute Engine (current core product icon, used for the Privoxy VM):
+https://services.google.com/fh/files/misc/core-products-icons.zip
+Identity-Aware Proxy and Cloud NAT (official legacy product icons; these
+products are not included in the current core product collection):
+https://services.google.com/fh/files/misc/google-cloud-legacy-icons.zip
+
 Google Cloud branding remains subject to Google's trademark guidelines.
 
 
