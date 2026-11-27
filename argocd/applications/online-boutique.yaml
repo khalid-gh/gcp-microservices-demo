@@ -15,12 +15,18 @@ spec:
       targetRevision: 0.10.7
       helm:
         releaseName: online-boutique
+        parameters:
+          - name: loadGenerator.checkFrontendInitContainer
+            value: "false"
         valueFiles:
           - $values/argocd/values/online-boutique.yaml
     - repoURL: https://github.com/khalid-gh/gcp-microservices-demo.git
       targetRevision: main
       ref: values
   syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
     automated:
       prune: false
       selfHeal: true
