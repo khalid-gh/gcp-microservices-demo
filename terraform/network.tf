@@ -41,6 +41,16 @@ module "vpc" {
         protocol = "tcp"
         ports    = ["8118"]
       }]
+    },
+    {
+      name          = "gke-demo-cluster-istio-webhook"
+      description   = "Allow the GKE control plane to reach the Istio admission webhook"
+      source_ranges = [coalesce(module.gke.master_ipv4_cidr_block, "${module.gke.endpoint}/32")]
+      target_tags   = ["gke-${module.gke.name}"]
+      allow = [{
+        protocol = "tcp"
+        ports    = ["15017"]
+      }]
     }
   ]
 }

@@ -44,6 +44,7 @@ resource "google_compute_instance" "privoxy" {
     logfile logfile
     actionsfile user.action
     listen-address 0.0.0.0:8118
+    max-client-connections 256
     permit-access 35.235.240.0/20
     enable-remote-toggle 0
     enable-remote-http-toggle 0
